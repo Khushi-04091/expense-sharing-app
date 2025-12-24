@@ -12,4 +12,4 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export default api;   // 🔴 THIS LINE IS REQUIRED
+export default api;   

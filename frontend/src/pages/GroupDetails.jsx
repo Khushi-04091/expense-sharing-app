@@ -21,19 +21,22 @@ function GroupDetails() {
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "600px" }}>
+  <div className="page-bg bg-view-groups">
+    <div className="card" style={{ width: "100%", maxWidth: "700px" }}>
       <h2>Group Expenses</h2>
 
-      {expenses.length === 0 && <p>No expenses yet</p>}
+      {expenses.length === 0 && (
+        <p>No expenses yet</p>
+      )}
 
       {expenses.map((exp) => (
         <div
           key={exp._id}
           style={{
-            border: "1px solid #ddd",
-            padding: "10px",
-            marginBottom: "12px",
-            borderRadius: "6px"
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
+            padding: "14px",
+            marginBottom: "16px"
           }}
         >
           <p>
@@ -49,23 +52,38 @@ function GroupDetails() {
             ))}
           </ul>
 
-          {/* ✅ SETTLE UP LOGIC — CORRECT PLACE */}
-          {!exp.isSettled ? (
+          {!exp.isSettled && (
             <button
-              onClick={() => handleSettle(exp._id)}
-              style={{ marginTop: "8px" }}
+              style={{ width: "auto", marginTop: "8px" }}
+              onClick={async () => {
+                await api.post(`/expenses/${exp._id}/settle`);
+                const res = await api.get(
+                  `/expenses/group/${groupId}`
+                );
+                setExpenses(res.data);
+              }}
             >
               Settle Up
             </button>
-          ) : (
-            <p style={{ color: "green", marginTop: "8px" }}>
+          )}
+
+          {exp.isSettled && (
+            <p
+              style={{
+                color: "green",
+                marginTop: "8px",
+                fontWeight: "600"
+              }}
+            >
               ✔ Settled
             </p>
           )}
         </div>
       ))}
     </div>
-  );
+  </div>
+);
+
 }
 
 export default GroupDetails;

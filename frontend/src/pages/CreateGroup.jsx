@@ -13,17 +13,24 @@ function CreateGroup() {
     setName("");
   };
 
-  return (
-    <div>
+return (
+  <div className="auth-center">
+    <div className="card">
       <h2>Create Group</h2>
+
       <input
         placeholder="Group Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <button onClick={handleCreate}>Create</button>
+
+      <button onClick={handleCreate}>
+        Create Group
+      </button>
     </div>
-  );
+  </div>
+);
+
 }
 
 export default CreateGroup;

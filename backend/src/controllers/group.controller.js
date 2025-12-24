@@ -1,12 +1,12 @@
 import Group from "../models/Group.js";
 import User from "../models/User.js";
 
-// ✅ CREATE GROUP
+
 export const createGroup = async (req, res) => {
   try {
     const { name, members = [] } = req.body;
 
-    // creator ko members me add karo
+   
     const uniqueMembers = new Set([
       req.user.toString(),
       ...members
@@ -24,7 +24,7 @@ export const createGroup = async (req, res) => {
   }
 };
 
-// ✅ GET GROUPS OF LOGGED-IN USER
+
 export const getGroups = async (req, res) => {
   try {
     const groups = await Group.find({
@@ -37,7 +37,7 @@ export const getGroups = async (req, res) => {
   }
 };
 
-// ✅ ADD MEMBER TO GROUP
+
 export const addMemberToGroup = async (req, res) => {
   try {
     const { groupId, email } = req.body;

@@ -2,7 +2,7 @@
 import Expense from "../models/Expense.js";
 import Group from "../models/Group.js";
 
-// ✅ ADD EXPENSE
+
 
 export const addExpense = async (req, res) => {
   try {
@@ -62,7 +62,7 @@ export const addExpense = async (req, res) => {
 
     
 
-// ✅ GET ALL EXPENSES OF A GROUP (SPLIT VIEW)
+
 export const getGroupExpenses = async (req, res) => {
   try {
     const { groupId } = req.params;

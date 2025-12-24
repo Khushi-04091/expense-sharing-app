@@ -1,72 +1,62 @@
-import { useEffect, useState } from "react";
-import api from "../api/api";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
-  const [groups, setGroups] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchGroups = async () => {
-      try {
-        const res = await api.get("/groups");
-        setGroups(res.data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGroups();
-  }, []);
-
-  if (loading) return <h3>Loading groups...</h3>;
-
-  return (
-    <div style={{ padding: "20px" }}>
-      <h2>Dashboard</h2>
-
-      <div style={{ marginBottom: "15px" }}>
-        <Link to="/create-group">
-          <button>Create New Group</button>
-        </Link>
-      </div>
-
-      {groups.length === 0 ? (
-        <p>No groups yet. Create one!</p>
-      ) : (
-        groups.map((group) => (
+  const cards = [
+    {
+      title: "Create Group",
+      image:
+        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+      path: "/create-group"
+    },
+    {
+      title: "Add Member",
+      image:
+        "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
+      path: "/add-member"
+    },
+    {
+      title: "Add Expense",
+      image:
+        "https://images.unsplash.com/photo-1604594849809-dfedbc827105",
+      path: "/add-expense"
+    },
+    {
+      title: "View Groups",
+      image:
+        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+      path: "/groups"
+    }
+  ];
+return (
+  <div className="page-bg bg-dashboard">
+    
+    {/*  HEADER (TOP ONLY) */}
+   
+    {/*  CONTENT (CENTER ONLY) */}
+    <div className="dashboard-content">
+      <div className="dashboard-grid">
+        {cards.map((card) => (
           <div
-            key={group._id}
-            style={{
-              border: "1px solid #ccc",
-              padding: "10px",
-              marginBottom: "10px",
-              borderRadius: "6px"
-            }}
+            key={card.title}
+            className="dashboard-card"
+            onClick={() => navigate(card.path)}
           >
-            <h3>{group.name}</h3>
-
-            <p>
-              Members:{" "}
-              {group.members.map((m) => m.name).join(", ")}
-            </p>
-            <Link to={`/groups/${group._id}`}>
-  <button>View Details</button>
-</Link>
-
-
-            <Link to="/add-expense">
-              <button>Add Expense</button>
-            </Link>
+            <img src={card.image} alt={card.title} />
+            <div className="dashboard-overlay" />
+            <div className="dashboard-title">{card.title}</div>
+            <div className="dashboard-arrow">→</div>
           </div>
-        ))
-      )}
+        ))}
+      </div>
     </div>
-  );
+
+  </div>
+);
+
+
+  
 }
 
 export default Dashboard;
-
-

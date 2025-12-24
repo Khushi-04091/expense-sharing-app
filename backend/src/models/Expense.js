@@ -14,7 +14,7 @@ const expenseSchema = new mongoose.Schema(
       }
     ],
 
-    // ✅ ADD THESE TWO FIELDS HERE
+    
     isSettled: {
       type: Boolean,
       default: false
